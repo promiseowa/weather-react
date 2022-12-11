@@ -1,6 +1,6 @@
 import React from "react";
 
-export default function (props) {
+export default function Weather(props) {
   return (
     <div className="container">
       <form>
