@@ -32,7 +32,6 @@ export default function Weather(props) {
           <span class="unit"></span>
         </h4>
       </p>
-
       <div class="row">
         <div class="col">Fri</div>
         <div class="col">Sat</div>
@@ -40,7 +39,6 @@ export default function Weather(props) {
         <div class="col">Mon</div>
         <div class="col">Tue</div>
       </div>
-
       <div class="row">
         <div class="col">
           <span> ☀️ </span>
@@ -58,7 +56,6 @@ export default function Weather(props) {
           <span> ☀️ </span>
         </div>
       </div>
-
       <div class="row">
         <div class="col">25°</div>
         <div class="col">27°</div>
@@ -66,6 +63,10 @@ export default function Weather(props) {
         <div class="col">23°</div>
         <div class="col">24°</div>
       </div>
+      <a href="https://github.com/promiseowa/weather-react" target="_blank">
+        Open Source Code
+      </a>{" "}
+      <span class="coder">by Promise Owa</span>
     </div>
   );
 }
