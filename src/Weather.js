@@ -1,7 +1,6 @@
 import React from "react";
-import axios from "axios";
 
-export default function Weather(props) {
+export default function Weather() {
   return (
     <div className="container">
       <form>
