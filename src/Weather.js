@@ -63,7 +63,11 @@ export default function Weather() {
         <div class="col">23°</div>
         <div class="col">24°</div>
       </div>
-      <a href="https://github.com/promiseowa/weather-react" target="_blank">
+      <a
+        href="https://github.com/promiseowa/weather-react"
+        target="_blank"
+        rel="noreferrer"
+      >
         Open Source Code
       </a>{" "}
       <span class="coder">by Promise Owa</span>
