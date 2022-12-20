@@ -1,76 +1,70 @@
-import React from "react";
+import React, { useState } from "react";
+import WeatherInfo from "./WeatherInfo";
+import axios from "axios";
+import "./Weather.css";
 
-export default function Weather() {
-  return (
-    <div className="container">
-      <form>
-        <input
-          type="text"
-          placeholder="enter city..."
-          autofocus="on"
-          autocomplete="off"
-          id="city-input"
-          class="form-control shadow-sm"
-        />
-        <button type="submit" class="btn btn-outline-danger">
-          Search
-        </button>
-        <button id="button2" type="button" class="btn btn-outline-info">
-          Current
-        </button>
-      </form>
-      <p>
-        <h2 id="city">
-          <strong> </strong>
-        </h2>
+export default function Weather(props) {
+  const [weatherData, setWeatherData] = useState({ ready: false });
+  const [city, setCity] = useState(props.defaultCity);
 
-        <h3> Thursday 16:58 </h3>
+  function handleResponse(response) {
+    setWeatherData({
+      ready: true,
+      coordinates: response.data.coord,
+      temperature: response.data.main.temp,
+      humidity: response.data.main.humidity,
+      date: new Date(response.data.dt * 1000),
+      description: response.data.weather[0].description,
+      icon: response.data.weather[0].icon,
+      wind: response.data.wind.speed,
+      city: response.data.name,
+    });
+  }
 
-        <h5 id="description">cloudy</h5>
-        <h4>
-          <span id="temp"></span>
-          <span class="unit"></span>
-        </h4>
-      </p>
-      <div class="row">
-        <div class="col">Fri</div>
-        <div class="col">Sat</div>
-        <div class="col">Sun</div>
-        <div class="col">Mon</div>
-        <div class="col">Tue</div>
+  function handleSubmit(event) {
+    event.preventDefault();
+    search();
+  }
+
+  function handleCityChange(event) {
+    setCity(event.target.value);
+  }
+
+  function search() {
+    const apiKey = "aef8a3d0b4741658ae72e5791de9f515";
+    let apiUrl = `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${apiKey}&units=metric`;
+    axios.get(apiUrl).then(handleResponse);
+  }
+
+  if (weatherData.ready) {
+    return (
+      <div className="Weather">
+        <form onSubmit={handleSubmit}>
+          <div className="row">
+            <div className="col-9">
+              <input
+                type="search"
+                placeholder="Enter a city.."
+                className="form-control"
+                autoFocus="on"
+                onChange={handleCityChange}
+              />
+            </div>
+            <div className="col-3">
+              <input
+                type="submit"
+                value="Search"
+                className="btn btn-primary w-100"
+              />
+            </div>
+          </div>
+        </form>
+        <WeatherInfo data={weatherData} />
+        <WeatherForecast coordinates={weatherData.coordinates} />
       </div>
-      <div class="row">
-        <div class="col">
-          <span> ☀️ </span>
-        </div>
-        <div class="col">
-          <span> ⛅ </span>
-        </div>
-        <div class="col">
-          <span> ☁️ </span>
-        </div>
-        <div class="col">
-          <span> ⛈️ </span>
-        </div>
-        <div class="col">
-          <span> ☀️ </span>
-        </div>
-      </div>
-      <div class="row">
-        <div class="col">25°</div>
-        <div class="col">27°</div>
-        <div class="col">25°</div>
-        <div class="col">23°</div>
-        <div class="col">24°</div>
-      </div>
-      <a
-        href="https://github.com/promiseowa/weather-react"
-        target="_blank"
-        rel="noreferrer"
-      >
-        Open Source Code
-      </a>{" "}
-      <span class="coder">by Promise Owa</span>
-    </div>
-  );
+    );
+  } else {
+    search();
+    return "Loading...";
+  }
 }
