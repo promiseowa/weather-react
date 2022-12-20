@@ -1,6 +1,6 @@
 import React from "react";
 
-export default function WeatherTemperature(props) {
+export default function WeatherTemp(props) {
   return (
     <div className="WeatherTemperature">
       <span className="temperature">{Math.round(props.celsius)}</span>
