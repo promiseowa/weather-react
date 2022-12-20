@@ -4,7 +4,7 @@ import Weather from "./weather";
 export default function App() {
   return (
     <div className="container">
-      <Weather defaultCity="New York" />
+      <Weather defaultCity="Abuja" />
       <a
         href="https://github.com/promiseowa/weather-react"
         target="_blank"
